@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/rv_layout" android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent" android:hardwareAccelerated="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv_show" android:background="@drawable/moon" android:layout_width="330.0px" android:layout_height="330.0px" android:layout_marginLeft="-330.0px" android:layout_marginTop="167.0px" />
+</RelativeLayout>

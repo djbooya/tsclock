@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/rv_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:background="@drawable/copilot_bottom_bg" android:visibility="gone" android:layout_width="908.0px" android:layout_height="136.0px" android:layout_marginLeft="506.0px" android:layout_marginTop="584.0px" />
+    <LinearLayout android:gravity="center|top" android:orientation="horizontal" android:id="@id/bigIcon" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Button android:id="@id/btn_home" android:background="@drawable/btn_window_home" android:layout_width="98.0px" android:layout_height="98.0px" android:layout_marginLeft="3.0px" android:layout_marginTop="42.0px" />
+        <Button android:id="@id/btn_return" android:background="@drawable/btn_return" android:layout_width="98.0px" android:layout_height="98.0px" android:layout_marginLeft="4.0px" android:layout_marginTop="42.0px" />
+        <Button android:id="@id/btn_volume_dn" android:background="@drawable/btn_volume_dn" android:layout_width="98.0px" android:layout_height="98.0px" android:layout_marginLeft="4.0px" android:layout_marginTop="42.0px" />
+        <Button android:id="@id/btn_volume_up" android:background="@drawable/btn_volume_up" android:layout_width="98.0px" android:layout_height="98.0px" android:layout_marginLeft="4.0px" android:layout_marginTop="42.0px" />
+        <Button android:id="@id/btn_mute" android:background="@drawable/btn_mute" android:layout_width="98.0px" android:layout_height="98.0px" android:layout_marginLeft="4.0px" android:layout_marginTop="42.0px" />
+        <Button android:id="@id/btn_screen_off" android:background="@drawable/btn_screen_off" android:layout_width="98.0px" android:layout_height="98.0px" android:layout_marginLeft="4.0px" android:layout_marginTop="42.0px" />
+    </LinearLayout>
+</RelativeLayout>

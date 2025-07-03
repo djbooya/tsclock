@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/rv_applist" android:background="@drawable/wallpaper_01" android:layout_width="fill_parent" android:layout_height="fill_parent" android:hardwareAccelerated="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/time1" android:layout_width="63.0px" android:layout_height="119.0px" android:layout_marginLeft="808.0px" android:layout_marginTop="58.0px" android:src="@drawable/copilot_time_num00" />
+    <ImageView android:id="@id/time2" android:layout_width="63.0px" android:layout_height="119.0px" android:layout_marginLeft="877.0px" android:layout_marginTop="58.0px" android:src="@drawable/copilot_time_num00" />
+    <ImageView android:id="@id/colon" android:layout_width="28.0px" android:layout_height="119.0px" android:layout_marginLeft="946.0px" android:layout_marginTop="58.0px" android:src="@drawable/copilot_time_colon" />
+    <ImageView android:id="@id/time3" android:layout_width="63.0px" android:layout_height="119.0px" android:layout_marginLeft="980.0px" android:layout_marginTop="58.0px" android:src="@drawable/copilot_time_num00" />
+    <ImageView android:id="@id/time4" android:layout_width="63.0px" android:layout_height="119.0px" android:layout_marginLeft="1049.0px" android:layout_marginTop="58.0px" android:src="@drawable/copilot_time_num00" />
+    <TextView android:textSize="20.0px" android:textColor="@android:color/black" android:gravity="center" android:id="@id/txt_am" android:visibility="gone" android:layout_width="51.0px" android:layout_height="26.0px" android:layout_marginLeft="1120.0px" android:layout_marginTop="68.0px" android:text="AM" />
+    <TextView android:textSize="20.0px" android:textColor="@android:color/black" android:gravity="center" android:id="@id/txt_pm" android:visibility="gone" android:layout_width="51.0px" android:layout_height="26.0px" android:layout_marginLeft="1120.0px" android:layout_marginTop="68.0px" android:text="PM" />
+    <android.support.v4.view.ViewPager android:id="@id/vp_applist" android:background="@drawable/copilot_allapps_bg" android:layout_width="1582.0px" android:layout_height="245.0px" android:layout_marginLeft="169.0px" android:layout_marginTop="302.0px" />
+    <ImageView android:background="@drawable/copilot_allapps_bg" android:layout_width="908.0px" android:layout_height="136.0px" android:layout_marginLeft="506.0px" android:layout_marginTop="584.0px" />
+    <Button android:id="@id/btn_home" android:background="@drawable/btn_home" android:layout_width="120.0px" android:layout_height="55.0px" android:layout_marginLeft="0.0px" android:layout_marginTop="0.0px" android:layout_alignParentLeft="true" />
+    <Button android:id="@id/btn_mute" android:background="@drawable/btn_mute" android:layout_width="188.0px" android:layout_height="136.0px" android:layout_marginLeft="584.0px" android:layout_marginTop="584.0px" />
+    <Button android:id="@id/btn_volume_up" android:background="@drawable/btn_volume_up" android:layout_width="188.0px" android:layout_height="136.0px" android:layout_marginLeft="772.0px" android:layout_marginTop="584.0px" />
+    <Button android:id="@id/btn_volume_dn" android:background="@drawable/btn_volume_dn" android:layout_width="188.0px" android:layout_height="136.0px" android:layout_marginLeft="960.0px" android:layout_marginTop="584.0px" />
+    <Button android:id="@id/btn_screen_off" android:background="@drawable/btn_screen_off" android:layout_width="188.0px" android:layout_height="136.0px" android:layout_marginLeft="1148.0px" android:layout_marginTop="584.0px" />
+</RelativeLayout>

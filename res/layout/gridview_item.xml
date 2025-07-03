@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:focusable="false" android:focusableInTouchMode="false" android:clickable="false" android:layout_width="200.0px" android:layout_height="240.0px" android:minHeight="240.0px"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_icon" android:focusable="false" android:focusableInTouchMode="false" android:clickable="false" android:layout_width="124.0px" android:layout_height="124.0px" />
+    <TextView android:textSize="30.0px" android:textColor="@android:color/white" android:ellipsize="end" android:gravity="center" android:id="@id/tv_name" android:focusable="false" android:focusableInTouchMode="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="40.0px" android:layout_marginTop="15.0px" android:maxLines="1" />
+</LinearLayout>

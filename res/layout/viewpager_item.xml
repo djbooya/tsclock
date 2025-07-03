@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.ts.tsclock.CustomGridView android:gravity="center_horizontal" android:id="@id/gv_applist" android:layout_width="1449.0px" android:layout_height="fill_parent" android:listSelector="@android:color/transparent" android:cacheColorHint="@android:color/transparent" android:horizontalSpacing="8.0px" android:verticalSpacing="20.0px" android:stretchMode="columnWidth" android:columnWidth="200.0px" android:numColumns="auto_fit" android:layout_centerInParent="true" />
+</RelativeLayout>

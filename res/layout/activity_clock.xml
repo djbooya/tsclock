@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/rv_clock" android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/rv_applist" android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent" android:hardwareAccelerated="true">
+        <ImageView android:id="@id/time1" android:layout_width="23.0px" android:layout_height="34.0px" android:layout_marginLeft="1749.0px" android:layout_marginTop="91.0px" android:src="@drawable/main_f_time_numb00" />
+        <ImageView android:id="@id/time2" android:layout_width="23.0px" android:layout_height="34.0px" android:layout_marginLeft="1772.0px" android:layout_marginTop="91.0px" android:src="@drawable/main_f_time_numb00" />
+        <ImageView android:id="@id/colon" android:layout_width="7.0px" android:layout_height="26.0px" android:layout_marginLeft="1798.0px" android:layout_marginTop="99.0px" android:src="@drawable/main_f_time_colon" />
+        <ImageView android:id="@id/time3" android:layout_width="23.0px" android:layout_height="34.0px" android:layout_marginLeft="1807.0px" android:layout_marginTop="91.0px" android:src="@drawable/main_f_time_numb00" />
+        <ImageView android:id="@id/time4" android:layout_width="23.0px" android:layout_height="34.0px" android:layout_marginLeft="1830.0px" android:layout_marginTop="91.0px" android:src="@drawable/main_f_time_numb00" />
+        <TextView android:textSize="20.0px" android:textColor="@android:color/white" android:gravity="center" android:id="@id/txt_am" android:visibility="gone" android:layout_width="79.0px" android:layout_height="27.0px" android:layout_marginLeft="1773.0px" android:layout_marginTop="132.0px" android:text="AM" />
+        <TextView android:textSize="20.0px" android:textColor="@android:color/white" android:gravity="center" android:id="@id/txt_pm" android:visibility="gone" android:layout_width="79.0px" android:layout_height="27.0px" android:layout_marginLeft="1773.0px" android:layout_marginTop="132.0px" android:text="PM" />
+        <ImageView android:background="@drawable/copilot_bottom_bg" android:visibility="gone" android:layout_width="908.0px" android:layout_height="136.0px" android:layout_marginLeft="506.0px" android:layout_marginTop="584.0px" />
+        <Button android:id="@id/btn_home" android:background="@drawable/btn_home" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="51.0px" />
+        <Button android:id="@id/btn_navi" android:background="@drawable/btn_navi" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="181.0px" />
+        <Button android:id="@id/btn_music" android:background="@drawable/btn_music" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="310.0px" />
+        <Button android:id="@id/btn_video" android:background="@drawable/btn_video" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="440.0px" />
+        <Button android:id="@id/btn_allapp" android:background="@drawable/btn_allapp" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="569.0px" />
+        <Button android:id="@id/btn_close" android:background="@drawable/btn_close" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="1752.0px" android:layout_marginTop="533.0px" />
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager android:id="@id/vp_applist" android:background="@android:color/transparent" android:paddingTop="140.0px" android:layout_width="1449.0px" android:layout_height="fill_parent" android:layout_marginLeft="240.0px" android:layout_marginTop="0.0px" />
+</RelativeLayout>

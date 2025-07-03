@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/rv_layout" android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv_weather" android:layout_width="211.0px" android:layout_height="134.0px" android:layout_marginLeft="2.0px" android:layout_marginTop="9.0px" />
+    <TextView android:textSize="30.0px" android:textColor="#ffffffff" android:gravity="center|left" android:id="@id/tv_temperature" android:paddingLeft="10.0px" android:layout_width="733.0px" android:layout_height="49.0px" android:layout_marginLeft="200.0px" android:layout_marginTop="38.0px" android:text="" />
+    <TextView android:textSize="30.0px" android:textColor="#ff7f7f7f" android:gravity="center|left" android:id="@id/tv_city" android:paddingLeft="10.0px" android:layout_width="733.0px" android:layout_height="49.0px" android:layout_marginLeft="200.0px" android:layout_marginTop="88.0px" android:text="" />
+    <LinearLayout android:id="@id/lv_layout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <ImageView android:id="@id/time1" android:layout_width="98.0px" android:layout_height="142.0px" android:src="@drawable/clock_digital_num00" />
+        <ImageView android:id="@id/time2" android:layout_width="98.0px" android:layout_height="142.0px" android:layout_marginLeft="30.0px" android:src="@drawable/clock_digital_num00" />
+        <ImageView android:id="@id/colon" android:layout_width="98.0px" android:layout_height="142.0px" android:layout_marginLeft="5.0px" android:src="@drawable/clock_digital_point" />
+        <ImageView android:id="@id/time3" android:layout_width="98.0px" android:layout_height="142.0px" android:layout_marginLeft="5.0px" android:src="@drawable/clock_digital_num00" />
+        <ImageView android:id="@id/time4" android:layout_width="98.0px" android:layout_height="142.0px" android:layout_marginLeft="30.0px" android:src="@drawable/clock_digital_num00" />
+    </LinearLayout>
+    <TextView android:textSize="30.0px" android:textColor="#ffffffff" android:gravity="center" android:id="@id/txt_date" android:visibility="gone" android:layout_width="462.0px" android:layout_height="45.0px" android:layout_marginLeft="283.0px" android:layout_marginTop="428.0px" />
+    <Button android:id="@id/btn_screen_mute" android:background="@drawable/btn_clock_digital_close" android:visibility="gone" android:layout_width="78.0px" android:layout_height="78.0px" android:layout_marginTop="6.0px" android:layout_marginRight="13.0px" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+    <TextView android:textSize="20.0px" android:textColor="#ffffffff" android:gravity="center" android:id="@id/txt_am" android:visibility="gone" android:layout_width="51.0px" android:layout_height="26.0px" android:layout_marginLeft="10.0px" android:text="AM" android:layout_toRightOf="@id/lv_layout" android:layout_alignTop="@id/lv_layout" />
+    <TextView android:textSize="20.0px" android:textColor="#ffffffff" android:gravity="center" android:id="@id/txt_pm" android:visibility="gone" android:layout_width="51.0px" android:layout_height="26.0px" android:layout_marginLeft="10.0px" android:text="PM" android:layout_toRightOf="@id/lv_layout" android:layout_alignBottom="@id/lv_layout" />
+</RelativeLayout>
