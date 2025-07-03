@@ -799,6 +799,10 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
 
+    const/4 v2, 0x4
+
+    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
+
     .line 184
     invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->updateLogo()V
 
@@ -1905,32 +1909,8 @@
 
     .prologue
     .line 188
-    invoke-static {}, Lcom/ts/tsclock/TsPrefrence;->getLogoImg()I
-
-    move-result v0
-
     .line 189
-    .local v0, "logoImg":I
-    if-nez v0, :cond_0
-
     .line 190
-    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->mIvLogo:Landroid/widget/ImageView;
-
-    const v2, 0x7f02007f
-
-    invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setImageResource(I)V
-
     .line 194
-    :goto_0
     return-void
-
-    .line 192
-    :cond_0
-    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->mIvLogo:Landroid/widget/ImageView;
-
-    const v2, 0x7f02007e
-
-    invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setImageResource(I)V
-
-    goto :goto_0
 .end method
