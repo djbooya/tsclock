@@ -17,6 +17,8 @@
 
 .field broadcastReceiver:Landroid/content/BroadcastReceiver;
 
+.field private centerlogo:Landroid/widget/ImageView;
+
 .field private dealTask:Ljava/lang/Runnable;
 
 .field direction:F
@@ -799,9 +801,16 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
 
-    const/4 v2, 0x4
+    .line 168
+    const v0, 0x7f080031
 
-    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
+    invoke-virtual {p0, v0}, Lcom/ts/tsclock/ViewPager1;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/ImageView;
+
+    iput-object v0, p0, Lcom/ts/tsclock/ViewPager1;->centerlogo:Landroid/widget/ImageView;
 
     .line 184
     invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->updateLogo()V
@@ -1905,12 +1914,61 @@
 .end method
 
 .method public updateLogo()V
-    .locals 3
+    .locals 9
 
-    .prologue
-    .line 188
-    .line 189
-    .line 190
-    .line 194
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+
+    move-result-object v0
+
+    new-instance v1, Ljava/io/File;
+
+    const-string v2, "Pictures/tsclock.png"
+
+    invoke-direct {v1, v0, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    new-instance v3, Ljava/io/File;
+
+    const-string v4, "Pictures/centerlogo.png"
+
+    invoke-direct {v3, v0, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iget-object v2, p0, Lcom/ts/tsclock/ViewPager1;->mIvLogo:Landroid/widget/ImageView;
+
+    invoke-virtual {v2, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :cond_0
+    invoke-virtual {v3}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    invoke-virtual {v3}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iget-object v4, p0, Lcom/ts/tsclock/ViewPager1;->centerlogo:Landroid/widget/ImageView;
+
+    invoke-virtual {v4, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :cond_1
     return-void
 .end method

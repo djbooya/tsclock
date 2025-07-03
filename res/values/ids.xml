@@ -49,4 +49,5 @@
     <item type="id" name="tv_speed" />
     <item type="id" name="gv_applist" />
     <item type="id" name="iv_multiscreen" />
+    <item type="id" name="centerlogo" />
 </resources>

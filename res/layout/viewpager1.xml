@@ -20,7 +20,7 @@
         <ImageView android:id="@id/speed2" android:layout_width="70.0px" android:layout_height="76.0px" android:layout_marginLeft="3.0px" android:src="@drawable/main_f_sudu_numb00" />
         <ImageView android:id="@id/speed3" android:layout_width="70.0px" android:layout_height="76.0px" android:layout_marginLeft="3.0px" android:src="@drawable/main_f_sudu_numb00" />
     </LinearLayout>
-    <ImageView android:layout_width="170.0px" android:layout_height="279.0px" android:layout_marginLeft="635.0px" android:layout_marginTop="261.0px" android:src="@drawable/main_f_che" />
+    <ImageView android:id="@id/centerlogo" android:layout_width="170.0px" android:layout_height="279.0px" android:layout_marginLeft="635.0px" android:layout_marginTop="261.0px" android:src="@drawable/main_f_che" />
     <ImageView android:visibility="gone" android:layout_width="330.0px" android:layout_height="70.0px" android:layout_marginLeft="561.0px" android:layout_marginTop="606.0px" android:src="@drawable/main_android_logo" />
     <ImageView android:visibility="gone" android:layout_width="424.0px" android:layout_height="89.0px" android:layout_marginLeft="508.0px" android:layout_marginTop="604.0px" android:src="@drawable/main_blackgold_logo" />
     <ImageView android:id="@id/iv_logo" android:layout_width="344.0px" android:layout_height="51.0px" android:layout_marginLeft="556.0px" android:layout_marginTop="602.0px" android:src="@drawable/main_turbos_logo" />

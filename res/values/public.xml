@@ -258,4 +258,5 @@
     <public type="id" name="tv_speed" id="0x7f08002e" />
     <public type="id" name="gv_applist" id="0x7f08002f" />
     <public type="id" name="iv_multiscreen" id="0x7f080030" />
+    <public type="id" name="centerlogo" id="0x7f080031" />
 </resources>

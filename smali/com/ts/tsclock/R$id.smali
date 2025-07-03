@@ -41,6 +41,8 @@
 
 .field public static final btn_volume_up:I = 0x7f08000b
 
+.field public static final centerlogo:I = 0x7f080031
+
 .field public static final colon:I = 0x7f080003
 
 .field public static final gv_applist:I = 0x7f08002f
