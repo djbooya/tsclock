@@ -31,7 +31,7 @@ Use this at your own risk.  While it's doubtful that this can brick your unit, y
 - Different styling
 [![TsClock_1.0mod_djbooya_2.apk](dist/TsClock_1.0mod_djbooya_5.jpg)](dist/TsClock_1.0mod_djbooya_5.apk)
 ## TsClock_1.0mod_djbooya_6.apk
-- Different styling
+- Different styling, added OEM style font for speed numbers.
 [![TsClock_1.0mod_djbooya_2.apk](dist/TsClock_1.0mod_djbooya_6.jpg)](dist/TsClock_1.0mod_djbooya_6.apk)
 ## TsClock_1.0mod_terry_1.jpg
 - Different styling, just for Terry
