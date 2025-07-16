@@ -1,5 +1,5 @@
 version: 2.11.0
-apkFileName: TsClock_1.0mod_djbooya_6.apk
+apkFileName: TsClock_1.0mod_djbooya_buttons.apk
 isFrameworkApk: false
 usesFramework:
   ids:
@@ -13,7 +13,7 @@ packageInfo:
   renameManifestPackage: null
 versionInfo:
   versionCode: 9
-  versionName: 1.0mod_djbooya_6
+  versionName: 1.0mod_djbooya_buttons
 sharedLibrary: false
 sparseResources: false
 compactEntries: false

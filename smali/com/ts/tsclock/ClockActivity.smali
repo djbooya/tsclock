@@ -2550,9 +2550,9 @@
     if-ne v0, v1, :cond_2
 
     .line 450
-    const-string v1, "com.ts.MainUI"
+    const-string v1, "com.google.android.apps.maps"
 
-    const-string v2, "com.ts.main.navi.NaviMainActivity"
+    const-string v2, "com.google.android.maps.MapsActivity"
 
     invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -2565,9 +2565,9 @@
     if-ne v0, v1, :cond_3
 
     .line 452
-    const-string v1, "com.ts.dvdplayer"
+    const-string v1, "com.google.android.apps.youtube.music"
 
-    const-string v2, "com.ts.dvdplayer.SDActivity"
+    const-string v2, "com.google.android.apps.youtube.music.activities.MusicActivity"
 
     invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
 
@@ -2580,9 +2580,9 @@
     if-ne v0, v1, :cond_4
 
     .line 454
-    const-string v1, "com.ts.dvdplayer"
+    const-string v1, "com.google.android.youtube"
 
-    const-string v2, "com.ts.dvdplayer.USBActivity"
+    const-string v2, "com.google.android.youtube.HomeActivity"
 
     invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
 
