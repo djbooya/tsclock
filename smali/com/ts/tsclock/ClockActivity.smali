@@ -2550,9 +2550,9 @@
     if-ne v0, v1, :cond_2
 
     .line 450
-    const-string v1, "com.google.android.apps.maps"
+    const-string v1, "com.ts.MainUI"
 
-    const-string v2, "com.google.android.maps.MapsActivity"
+    const-string v2, "com.ts.main.navi.NaviMainActivity"
 
     invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
 
