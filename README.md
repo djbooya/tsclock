@@ -73,3 +73,8 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 * I use the [AutoMate](https://llamalab.com/automate/) app to get the package name and classname for the button. You'll need to do some trial and error.
     
 *   These correspond to the 3 middle buttons on the interface. The defaults are shown above.
+
+## TsClock\_2.0mod\_djbooya_1.apk
+
+*   Different styling, just for Terry [![TsClock_2.0mod_djbooya_1.apk](dist/TsClock_2.0mod_djbooya_1.jpg)](dist/TsClock_2.0mod_djbooya_1.apk)
+    
