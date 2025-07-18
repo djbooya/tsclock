@@ -244,7 +244,7 @@
 .end method
 
 .method private static write2LogFile(Ljava/lang/String;Ljava/lang/String;)V
-    .locals 8
+    .locals 11
     .param p0, "strTag"    # Ljava/lang/String;
     .param p1, "strMsg"    # Ljava/lang/String;
 
@@ -253,11 +253,15 @@
     :try_start_0
     new-instance v1, Ljava/io/FileOutputStream;
 
-    const-string v4, "/mnt/sdcard/mediaLog.txt"
+    const-string v10, "/debuglog.txt"
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+    move-result-object v9
+    new-instance v4, Ljava/io/File;
+    invoke-direct {v4, v9, v10}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
     const/4 v5, 0x1
-
-    invoke-direct {v1, v4, v5}, Ljava/io/FileOutputStream;-><init>(Ljava/lang/String;Z)V
+    new-instance v1, Ljava/io/FileOutputStream;
+    invoke-direct {v1, v4, v5}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;Z)V
 
     .line 34
     .local v1, "out":Ljava/io/FileOutputStream;
@@ -396,3 +400,4 @@
 
     goto :goto_0
 .end method
+
