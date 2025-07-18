@@ -2508,116 +2508,168 @@
     goto/16 :goto_3
 .end method
 
+
 .method public onClick(Landroid/view/View;)V
-    .locals 4
+
+    .locals 12
     .param p1, "v"    # Landroid/view/View;
 
-    .prologue
-    const/16 v3, 0x8
-
-    const/4 v2, 0x0
-
-    .line 443
     invoke-virtual {p1}, Landroid/view/View;->getId()I
-
     move-result v0
 
-    .line 444
-    .local v0, "id":I
+    # Create File(Environment.getExternalStorageDirectory(), "/buttonMapping.ini")
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+    move-result-object v1
+
+    const-string v2, "/buttonMapping.ini"
+    new-instance v3, Ljava/io/File;
+    invoke-direct {v3, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    invoke-virtual {v3}, Ljava/io/File;->getPath()Ljava/lang/String;
+    move-result-object v4
+
+    # Try-catch KeyValueStore creation
+    new-instance v5, Lcom/ts/tsclock/KeyValueStore;
+    :try_start_kvfinal
+    invoke-direct {v5, v4}, Lcom/ts/tsclock/KeyValueStore;-><init>(Ljava/lang/String;)V
+    :try_end_kvfinal
+    .catch Ljava/lang/Exception; {:try_start_kvfinal .. :try_end_kvfinal} :catch_kvfinal
+
+    goto :after_kvfinal
+
+    :catch_kvfinal
+    move-exception v11
+    .local v11, "e":Ljava/lang/Exception;
+
+    new-instance v5, Lcom/ts/tsclock/KeyValueStore;
+    invoke-direct {v5}, Lcom/ts/tsclock/KeyValueStore;-><init>()V
+
+    const-string v6, "default"
+    const-string v7, "default"
+    invoke-virtual {v5, v6, v7}, Lcom/ts/tsclock/KeyValueStore;->put(Ljava/lang/String;Ljava/lang/String;)V
+
+    .end local v11
+
+    :after_kvfinal
+
+    const/16 v10, 0x8
+    const/4 v11, 0x0
+
+    # --- btn_home (0x7f080009) ---
     const v1, 0x7f080009
+    if-ne v0, v1, :check_navi
 
-    if-ne v0, v1, :cond_1
-
-    .line 445
     iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mVp1:Lcom/ts/tsclock/ViewPager1;
+    invoke-virtual {v1, v11}, Lcom/ts/tsclock/ViewPager1;->setVisibility(I)V
 
-    invoke-virtual {v1, v2}, Lcom/ts/tsclock/ViewPager1;->setVisibility(I)V
-
-    .line 446
     iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mViewPager:Landroid/support/v4/view/ViewPager;
+    invoke-virtual {v1, v10}, Landroid/support/v4/view/ViewPager;->setVisibility(I)V
 
-    invoke-virtual {v1, v3}, Landroid/support/v4/view/ViewPager;->setVisibility(I)V
+    goto :return_block
 
-    .line 461
-    :cond_0
-    :goto_0
-    return-void
-
-    .line 449
-    :cond_1
+    # --- btn_navi (0x7f08000f) ---
+:check_navi
     const v1, 0x7f08000f
+    if-ne v0, v1, :check_music
 
-    if-ne v0, v1, :cond_2
+    const-string v6, "btn1pkg"
+    invoke-virtual {v5, v6}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
 
-    .line 450
-    const-string v1, "com.ts.MainUI"
+    const-string v6, "btn1class"
+    invoke-virtual {v5, v6}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v8
 
-    const-string v2, "com.ts.main.navi.NaviMainActivity"
+    const-string v9, "com.ts.MainUI"
+    const-string v10, "com.ts.main.navi.NaviMainActivity"
 
-    invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    if-eqz v7, :use_default_navi_pkg
+    move-object v9, v7
+  :use_default_navi_pkg
 
-    goto :goto_0
+    if-eqz v8, :use_default_navi_cls
+    move-object v10, v8
+  :use_default_navi_cls
 
-    .line 451
-    :cond_2
+    invoke-direct {p0, v9, v10}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    goto :return_block
+
+    # --- btn_music (0x7f080010) ---
+:check_music
     const v1, 0x7f080010
+    if-ne v0, v1, :check_video
 
-    if-ne v0, v1, :cond_3
+    const-string v6, "btn2pkg"
+    invoke-virtual {v5, v6}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
 
-    .line 452
-    const-string v1, "com.google.android.apps.youtube.music"
+    const-string v6, "btn2class"
+    invoke-virtual {v5, v6}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v8
 
-    const-string v2, "com.google.android.apps.youtube.music.activities.MusicActivity"
+    const-string v9, "com.ts.dvdplayer"
+    const-string v10, "com.ts.dvdplayer.SDActivity"
 
-    invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    if-eqz v7, :use_default_music_pkg
+    move-object v9, v7
+  :use_default_music_pkg
 
-    goto :goto_0
+    if-eqz v8, :use_default_music_cls
+    move-object v10, v8
+  :use_default_music_cls
 
-    .line 453
-    :cond_3
+    invoke-direct {p0, v9, v10}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    goto :return_block
+
+    # --- btn_video (0x7f080011) ---
+:check_video
     const v1, 0x7f080011
+    if-ne v0, v1, :check_allapp
 
-    if-ne v0, v1, :cond_4
+    const-string v6, "btn3pkg"
+    invoke-virtual {v5, v6}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
 
-    .line 454
-    const-string v1, "com.google.android.youtube"
+    const-string v6, "btn3class"
+    invoke-virtual {v5, v6}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v8
 
-    const-string v2, "com.google.android.youtube.HomeActivity"
+    const-string v9, "com.ts.dvdplayer"
+    const-string v10, "com.ts.dvdplayer.USBActivity"
 
-    invoke-direct {p0, v1, v2}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    if-eqz v7, :use_default_video_pkg
+    move-object v9, v7
+  :use_default_video_pkg
 
-    goto :goto_0
+    if-eqz v8, :use_default_video_cls
+    move-object v10, v8
+  :use_default_video_cls
 
-    .line 455
-    :cond_4
+    invoke-direct {p0, v9, v10}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    goto :return_block
+
+    # --- btn_allapp (0x7f080012) ---
+:check_allapp
     const v1, 0x7f080012
+    if-ne v0, v1, :check_close
 
-    if-ne v0, v1, :cond_5
-
-    .line 456
     iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mVp1:Lcom/ts/tsclock/ViewPager1;
+    invoke-virtual {v1, v10}, Lcom/ts/tsclock/ViewPager1;->setVisibility(I)V
 
-    invoke-virtual {v1, v3}, Lcom/ts/tsclock/ViewPager1;->setVisibility(I)V
-
-    .line 457
     iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mViewPager:Landroid/support/v4/view/ViewPager;
+    invoke-virtual {v1, v11}, Landroid/support/v4/view/ViewPager;->setVisibility(I)V
+    goto :return_block
 
-    invoke-virtual {v1, v2}, Landroid/support/v4/view/ViewPager;->setVisibility(I)V
-
-    goto :goto_0
-
-    .line 458
-    :cond_5
+    # --- btn_close (0x7f080013) ---
+:check_close
     const v1, 0x7f080013
+    if-ne v0, v1, :return_block
 
-    if-ne v0, v1, :cond_0
-
-    .line 459
     const-string v1, "forfan.intent.action.SCREENOFF"
-
     invoke-direct {p0, v1}, Lcom/ts/tsclock/ClockActivity;->sendMainUIBroadcast(Ljava/lang/String;)V
 
-    goto :goto_0
+:return_block
+    return-void
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V
