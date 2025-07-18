@@ -1,5 +1,7 @@
 .class public Lcom/ts/tsclock/ClockActivity;
 .super Landroid/app/Activity;
+.field private kvStore:Lcom/ts/tsclock/KeyValueStore;
+
 .source "ClockActivity.java"
 
 # interfaces
@@ -1548,6 +1550,37 @@
     invoke-virtual {p0, v1, v0}, Lcom/ts/tsclock/ClockActivity;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
     .line 241
+    
+    :try_start_kv
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+    move-result-object v0
+
+    const-string v1, "/buttonMapping.ini"
+    new-instance v2, Ljava/io/File;
+    invoke-direct {v2, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    invoke-virtual {v2}, Ljava/io/File;->getPath()Ljava/lang/String;
+    move-result-object v0
+
+    new-instance v1, Lcom/ts/tsclock/KeyValueStore;
+    invoke-direct {v1, v0}, Lcom/ts/tsclock/KeyValueStore;-><init>(Ljava/lang/String;)V
+
+    iput-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
+
+    goto :end_kv
+
+    :try_end_kv
+    .catch Ljava/lang/Exception; {:try_start_kv .. :try_end_kv} :catch_kv
+
+    :catch_kv
+    move-exception v0
+
+    new-instance v1, Lcom/ts/tsclock/KeyValueStore;
+    invoke-direct {v1}, Lcom/ts/tsclock/KeyValueStore;-><init>()V
+    iput-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
+
+    :end_kv
+
     return-void
 .end method
 
@@ -2517,40 +2550,8 @@
     invoke-virtual {p1}, Landroid/view/View;->getId()I
     move-result v0
 
-    # Create File(Environment.getExternalStorageDirectory(), "/buttonMapping.ini")
-    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
-    move-result-object v1
-
-    const-string v2, "/buttonMapping.ini"
-    new-instance v3, Ljava/io/File;
-    invoke-direct {v3, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
-
-    invoke-virtual {v3}, Ljava/io/File;->getPath()Ljava/lang/String;
-    move-result-object v4
-
-    # Try-catch KeyValueStore creation
-    new-instance v5, Lcom/ts/tsclock/KeyValueStore;
-    :try_start_kvfinal
-    invoke-direct {v5, v4}, Lcom/ts/tsclock/KeyValueStore;-><init>(Ljava/lang/String;)V
-    :try_end_kvfinal
-    .catch Ljava/lang/Exception; {:try_start_kvfinal .. :try_end_kvfinal} :catch_kvfinal
-
-    goto :after_kvfinal
-
-    :catch_kvfinal
-    move-exception v11
-    .local v11, "e":Ljava/lang/Exception;
-
-    new-instance v5, Lcom/ts/tsclock/KeyValueStore;
-    invoke-direct {v5}, Lcom/ts/tsclock/KeyValueStore;-><init>()V
-
-    const-string v6, "default"
-    const-string v7, "default"
-    invoke-virtual {v5, v6, v7}, Lcom/ts/tsclock/KeyValueStore;->put(Ljava/lang/String;Ljava/lang/String;)V
-
-    .end local v11
-
-    :after_kvfinal
+    
+    iget-object v5, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
 
     const/16 v10, 0x8
     const/4 v11, 0x0
@@ -3402,3 +3403,4 @@
 
     goto/16 :goto_2
 .end method
+
