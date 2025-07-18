@@ -23,6 +23,8 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 ## TsClock\_1.0mod\_djbooya\_2.apk
 
 *   Initial Revision based on TorstenH mod adding ability to override default center image.
+
+*   Instructions to customize OEM radio controls: [Santirx Instructional Video](https://www.youtube.com/watch?v=6IumZV3e1j0)
     
 *   Add to "Pictures" folder of internal storage a file named "centerlogo.png" to override the default
     
