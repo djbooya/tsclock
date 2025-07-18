@@ -15,7 +15,7 @@
         <Button android:id="@id/btn_music" android:background="@drawable/btn_music" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="310.0px" />
         <Button android:id="@id/btn_video" android:background="@drawable/btn_video" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="440.0px" />
         <Button android:id="@id/btn_allapp" android:background="@drawable/btn_allapp" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="60.0px" android:layout_marginTop="569.0px" />
-        <Button android:id="@id/btn_close" android:background="@drawable/btn_close" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="1752.0px" android:layout_marginTop="533.0px" />
+        <Button android:id="@id/btn_close" android:background="@drawable/btn_close" android:layout_width="123.0px" android:layout_height="97.0px" android:layout_marginLeft="1800.0px" android:layout_marginTop="620.0px" />
     </RelativeLayout>
     <android.support.v4.view.ViewPager android:id="@id/vp_applist" android:background="@android:color/transparent" android:paddingTop="140.0px" android:layout_width="1449.0px" android:layout_height="fill_parent" android:layout_marginLeft="240.0px" android:layout_marginTop="0.0px" />
 </RelativeLayout>
