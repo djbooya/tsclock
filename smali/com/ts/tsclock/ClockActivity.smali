@@ -1581,6 +1581,7 @@
 
     :end_kv
 
+    invoke-direct {p0}, Lcom/ts/tsclock/ClockActivity;->overrideButtons()V
     return-void
 .end method
 
@@ -3404,3 +3405,128 @@
     goto/16 :goto_2
 .end method
 
+.method private overrideButtons()V
+    .locals 10
+
+    const/4 v0, 0x0
+
+    :loop_start
+    const/4 v1, 0x5
+    if-ge v0, v1, :loop_end
+
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+    move-result-object v1
+    invoke-virtual {v1}, Ljava/io/File;->toString()Ljava/lang/String;
+    move-result-object v1
+
+    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v3, "Pictures/tsclock/btn"
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    const-string v3, "_up.png"
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v4
+    new-instance v5, Ljava/io/File;
+    invoke-direct {v5, v4}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    new-instance v2, Ljava/lang/StringBuilder;
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v3, "Pictures/tsclock/btn"
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+    const-string v3, "_dn.png"
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v6
+    new-instance v7, Ljava/io/File;
+    invoke-direct {v7, v6}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    const/4 v8, 0x0  # Drawable result (initially null)
+
+    invoke-virtual {v5}, Ljava/io/File;->exists()Z
+    move-result v9
+    invoke-virtual {v7}, Ljava/io/File;->exists()Z
+    move-result v3
+    and-int/2addr v9, v3
+    if-eqz v9, :skip_drawable
+
+    invoke-virtual {v5}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v4
+    invoke-static {v4}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v4
+
+    invoke-virtual {v7}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v5
+    invoke-static {v5}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v5
+
+    invoke-virtual {p0}, Lcom/ts/tsclock/ClockActivity;->getResources()Landroid/content/res/Resources;
+    move-result-object v6
+
+    new-instance v2, Landroid/graphics/drawable/BitmapDrawable;
+    invoke-direct {v2, v6, v4}, Landroid/graphics/drawable/BitmapDrawable;-><init>(Landroid/content/res/Resources;Landroid/graphics/Bitmap;)V
+
+    new-instance v4, Landroid/graphics/drawable/BitmapDrawable;
+    invoke-direct {v4, v6, v5}, Landroid/graphics/drawable/BitmapDrawable;-><init>(Landroid/content/res/Resources;Landroid/graphics/Bitmap;)V
+
+    new-instance v8, Landroid/graphics/drawable/StateListDrawable;
+    invoke-direct {v8}, Landroid/graphics/drawable/StateListDrawable;-><init>()V
+
+    const/4 v5, 0x1
+    new-array v6, v5, [I
+    const v7, 0x10100a7
+    const/4 v5, 0x0
+    aput v7, v6, v5
+    invoke-virtual {v8, v6, v4}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
+
+    new-array v6, v5, [I
+    invoke-virtual {v8, v6, v2}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
+
+    :skip_drawable
+    const/4 v9, 0x0
+    if-eq v0, v9, :set_home
+    const/4 v9, 0x1
+    if-eq v0, v9, :set_navi
+    const/4 v9, 0x2
+    if-eq v0, v9, :set_music
+    const/4 v9, 0x3
+    if-eq v0, v9, :set_video
+    const/4 v9, 0x4
+    if-eq v0, v9, :set_allapp
+    goto :loop_continue
+
+    :set_home
+    iget-object v3, p0, Lcom/ts/tsclock/ClockActivity;->mBtnHome:Landroid/widget/Button;
+    invoke-virtual {v3, v8}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    goto :loop_continue
+
+    :set_navi
+    iget-object v3, p0, Lcom/ts/tsclock/ClockActivity;->mBtnNavi:Landroid/widget/Button;
+    invoke-virtual {v3, v8}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    goto :loop_continue
+
+    :set_music
+    iget-object v3, p0, Lcom/ts/tsclock/ClockActivity;->mBtnMusic:Landroid/widget/Button;
+    invoke-virtual {v3, v8}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    goto :loop_continue
+
+    :set_video
+    iget-object v3, p0, Lcom/ts/tsclock/ClockActivity;->mBtnVideo:Landroid/widget/Button;
+    invoke-virtual {v3, v8}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    goto :loop_continue
+
+    :set_allapp
+    iget-object v3, p0, Lcom/ts/tsclock/ClockActivity;->mBtnAllapp:Landroid/widget/Button;
+    invoke-virtual {v3, v8}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    :loop_continue
+    add-int/lit8 v0, v0, 0x1
+    goto :loop_start
+
+    :loop_end
+    return-void
+.end method
