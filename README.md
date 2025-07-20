@@ -77,4 +77,17 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 ## TsClock\_2.0mod\_djbooya_1.apk
 
 *   Different styling, just for Terry [![TsClock_2.0mod_djbooya_1.apk](dist/TsClock_2.0mod_djbooya_1.jpg)](dist/TsClock_2.0mod_djbooya_1.apk)
-    
+
+## TsClock\_2.1mod\_djbooya.apk
+
+[Download](dist/TsClock_2.1mod_djbooya.apk)
+
+*   New Feature:
+	* User customizable button images!!
+	* Format of filename: 
+		* btn#_up.png - normal condition of button
+		* btn#_down.png - when button is pressed
+	* Where to put files?
+		* Pictures/tsclock (create new folder)
+		* In future versions I will move the location of tsclock.png and centerlogo.png to be in this directory for better organization.
+	* If a pair of files do not exist then the default will be used.

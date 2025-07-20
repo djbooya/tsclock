@@ -3422,7 +3422,7 @@
     new-instance v2, Ljava/lang/StringBuilder;
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
     invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    const-string v3, "Pictures/tsclock/btn"
+    const-string v3, "/Pictures/tsclock/btn"
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
     const-string v3, "_up.png"
@@ -3435,7 +3435,7 @@
     new-instance v2, Ljava/lang/StringBuilder;
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
     invoke-virtual {v2, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    const-string v3, "Pictures/tsclock/btn"
+    const-string v3, "/Pictures/tsclock/btn"
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
     const-string v3, "_dn.png"
@@ -3486,7 +3486,6 @@
     new-array v6, v5, [I
     invoke-virtual {v8, v6, v2}, Landroid/graphics/drawable/StateListDrawable;->addState([ILandroid/graphics/drawable/Drawable;)V
 
-    :skip_drawable
     const/4 v9, 0x0
     if-eq v0, v9, :set_home
     const/4 v9, 0x1
@@ -3522,6 +3521,8 @@
     :set_allapp
     iget-object v3, p0, Lcom/ts/tsclock/ClockActivity;->mBtnAllapp:Landroid/widget/Button;
     invoke-virtual {v3, v8}, Landroid/widget/Button;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    
+		:skip_drawable
 
     :loop_continue
     add-int/lit8 v0, v0, 0x1
