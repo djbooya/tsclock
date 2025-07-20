@@ -87,6 +87,12 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 	* Format of filename: 
 		* btn#_up.png - normal condition of button
 		* btn#_down.png - when button is pressed
+		* From top to bottom the images are:
+			* 0 = Home (can't be changed currently)
+			* 1 = Navi (default)
+			* 2 = Music (default)
+			* 3 = Video (default)
+			* 4 = Apps (can't be changed currently)
 	* Where to put files?
 		* Pictures/tsclock (create new folder)
 		* In future versions I will move the location of tsclock.png and centerlogo.png to be in this directory for better organization.
