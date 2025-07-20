@@ -84,7 +84,7 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 
 *   New Feature:
 	* User customizable button images!!
-	* Format of filename: 
+	* Format of filename (Resolution: 123x97): 
 		* btn#_up.png - normal condition of button
 		* btn#_down.png - when button is pressed
 		* From top to bottom the images are:
