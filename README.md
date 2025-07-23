@@ -97,3 +97,10 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 		* Pictures/tsclock (create new folder)
 		* In future versions I will move the location of tsclock.png and centerlogo.png to be in this directory for better organization.
 	* If a pair of files do not exist then the default will be used.
+
+## TsClock\_2.2mod\_djbooya.apk
+
+[Download](dist/TsClock_2.2mod_djbooya.apk)
+
+	* Button 5 in lower right now configurable for images and buttonMapping.  It is number 5.
+  * If the config does not exist in buttonMapping.ini then the default behavior will be used.
