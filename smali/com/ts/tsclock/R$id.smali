@@ -43,6 +43,10 @@
 
 .field public static final centerlogo:I = 0x7f080031
 
+.field public static final clockcenter:I = 0x7f080032
+
+.field public static final clockface:I = 0x7f080033
+
 .field public static final colon:I = 0x7f080003
 
 .field public static final gv_applist:I = 0x7f08002f

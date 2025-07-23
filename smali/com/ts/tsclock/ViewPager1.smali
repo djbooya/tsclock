@@ -19,6 +19,10 @@
 
 .field private centerlogo:Landroid/widget/ImageView;
 
+.field private clockcenter:Landroid/widget/ImageView;
+
+.field private clockface:Landroid/widget/ImageView;
+
 .field private dealTask:Ljava/lang/Runnable;
 
 .field direction:F
@@ -820,324 +824,179 @@
 .end method
 
 .method private updateClock()V
-    .locals 17
+    .locals 12
 
-    .prologue
-    .line 225
-    new-instance v13, Landroid/text/format/Time;
+    new-instance v0, Landroid/text/format/Time;
+    invoke-direct {v0}, Landroid/text/format/Time;-><init>()V
+    invoke-virtual {v0}, Landroid/text/format/Time;->setToNow()V
 
-    invoke-direct {v13}, Landroid/text/format/Time;-><init>()V
+    iget v1, v0, Landroid/text/format/Time;->hour:I
+    iget v2, v0, Landroid/text/format/Time;->minute:I
+    iget v3, v0, Landroid/text/format/Time;->second:I
 
-    .line 226
-    .local v13, "time":Landroid/text/format/Time;
-    invoke-virtual {v13}, Landroid/text/format/Time;->setToNow()V
+    int-to-float v4, v1
+    const/high16 v5, 0x41f00000  # 30.0f
+    mul-float/2addr v4, v5
 
-    .line 227
-    iget v4, v13, Landroid/text/format/Time;->hour:I
+    int-to-float v6, v2
+    const/high16 v7, 0x42700000  # 60.0f
+    div-float/2addr v6, v7
+    mul-float/2addr v6, v5
+    add-float v8, v4, v6            # hourRotate
 
-    .line 228
-    .local v4, "h1":I
-    iget v6, v13, Landroid/text/format/Time;->minute:I
+    int-to-float v4, v2
+    const/high16 v5, 0x40c00000  # 6.0f
+    mul-float v9, v4, v5          # minuteRotate
 
-    .line 229
-    .local v6, "m1":I
-    iget v11, v13, Landroid/text/format/Time;->second:I
+    int-to-float v4, v3
+    mul-float v10, v4, v5         # secondRotate
 
-    .line 230
-    .local v11, "s1":I
-    int-to-float v14, v4
-
-    const/high16 v15, 0x41f00000    # 30.0f
-
-    mul-float/2addr v14, v15
-
-    int-to-float v15, v6
-
-    const/high16 v16, 0x42700000    # 60.0f
-
-    div-float v15, v15, v16
-
-    const/high16 v16, 0x41f00000    # 30.0f
-
-    mul-float v15, v15, v16
-
-    add-float v5, v14, v15
-
-    .line 231
-    .local v5, "hourRotate":F
-    int-to-float v14, v6
-
-    const/high16 v15, 0x40c00000    # 6.0f
-
-    mul-float v7, v14, v15
-
-    .line 232
-    .local v7, "minuteRotate":F
-    int-to-float v14, v11
-
-    const/high16 v15, 0x40c00000    # 6.0f
-
-    mul-float v12, v14, v15
-
-    .line 233
-    .local v12, "secondRotate":F
     new-instance v1, Landroid/graphics/Matrix;
-
     invoke-direct {v1}, Landroid/graphics/Matrix;-><init>()V
-
-    .line 234
-    .local v1, "a":Landroid/graphics/Matrix;
     new-instance v2, Landroid/graphics/Matrix;
-
     invoke-direct {v2}, Landroid/graphics/Matrix;-><init>()V
-
-    .line 235
-    .local v2, "b":Landroid/graphics/Matrix;
     new-instance v3, Landroid/graphics/Matrix;
-
     invoke-direct {v3}, Landroid/graphics/Matrix;-><init>()V
 
-    .line 236
-    .local v3, "c":Landroid/graphics/Matrix;
     invoke-virtual {v1}, Landroid/graphics/Matrix;->reset()V
-
-    .line 237
     invoke-virtual {v2}, Landroid/graphics/Matrix;->reset()V
-
-    .line 238
     invoke-virtual {v3}, Landroid/graphics/Matrix;->reset()V
 
-    .line 240
-    move-object/from16 v0, p0
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+    move-result-object v4
+
+    # === Hour ===
+    const-string v5, "Pictures/tsclock/hour.png"
+    new-instance v6, Ljava/io/File;
+    invoke-direct {v6, v4, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-virtual {v6}, Ljava/io/File;->exists()Z
+    move-result v5
+    if-eqz v5, :check_hour
+    invoke-virtual {v6}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v5
+    invoke-static {v5}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    iput-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
+
+    :check_hour
+    iget-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
+    if-eqz v5, :load_hour_default
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->isRecycled()Z
+    move-result v6
+    if-eqz v6, :rotate_hour
+
+    :load_hour_default
+    invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->getResources()Landroid/content/res/Resources;
+    move-result-object v6
+    const v7, 0x7f02007d
+    invoke-static {v6, v7}, Landroid/graphics/BitmapFactory;->decodeResource(Landroid/content/res/Resources;I)Landroid/graphics/Bitmap;
+    move-result-object v6
+    iput-object v6, p0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
+
+    :rotate_hour
+    iget-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getWidth()I
+    move-result v6
+    int-to-float v6, v6
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getHeight()I
+    move-result v7
+    int-to-float v7, v7
+    invoke-virtual {v1, v8, v6, v7}, Landroid/graphics/Matrix;->setRotate(FFF)V
+
+    invoke-direct {p0, v5, v1}, Lcom/ts/tsclock/ViewPager1;->getNewBitmap(Landroid/graphics/Bitmap;Landroid/graphics/Matrix;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    iget-object v6, p0, Lcom/ts/tsclock/ViewPager1;->img_hour:Landroid/widget/ImageView;
+    invoke-virtual {v6, v5}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    # === Minute (repeat pattern) ===
+    const-string v5, "Pictures/tsclock/minute.png"
+    new-instance v6, Ljava/io/File;
+    invoke-direct {v6, v4, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-virtual {v6}, Ljava/io/File;->exists()Z
+    move-result v5
+    if-eqz v5, :check_minute
+    invoke-virtual {v6}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v5
+    invoke-static {v5}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    iput-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
+
+    :check_minute
+    iget-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
+    if-eqz v5, :load_minute_default
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->isRecycled()Z
+    move-result v6
+    if-eqz v6, :rotate_minute
+
+    :load_minute_default
+    invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->getResources()Landroid/content/res/Resources;
+    move-result-object v6
+    const v7, 0x7f02007a
+    invoke-static {v6, v7}, Landroid/graphics/BitmapFactory;->decodeResource(Landroid/content/res/Resources;I)Landroid/graphics/Bitmap;
+    move-result-object v6
+    iput-object v6, p0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
+
+    :rotate_minute
+    iget-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getWidth()I
+    move-result v6
+    int-to-float v6, v6
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getHeight()I
+    move-result v7
+    int-to-float v7, v7
+    invoke-virtual {v2, v9, v6, v7}, Landroid/graphics/Matrix;->setRotate(FFF)V
+
+    invoke-direct {p0, v5, v2}, Lcom/ts/tsclock/ViewPager1;->getNewBitmap(Landroid/graphics/Bitmap;Landroid/graphics/Matrix;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    iget-object v6, p0, Lcom/ts/tsclock/ViewPager1;->img_minute:Landroid/widget/ImageView;
+    invoke-virtual {v6, v5}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    # === Second (repeat pattern) ===
+    const-string v5, "Pictures/tsclock/second.png"
+    new-instance v6, Ljava/io/File;
+    invoke-direct {v6, v4, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-virtual {v6}, Ljava/io/File;->exists()Z
+    move-result v5
+    if-eqz v5, :check_second
+    invoke-virtual {v6}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v5
+    invoke-static {v5}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    iput-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
+
+    :check_second
+    iget-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
+    if-eqz v5, :load_second_default
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->isRecycled()Z
+    move-result v6
+    if-eqz v6, :rotate_second
+
+    :load_second_default
+    invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->getResources()Landroid/content/res/Resources;
+    move-result-object v6
+    const v7, 0x7f02007b
+    invoke-static {v6, v7}, Landroid/graphics/BitmapFactory;->decodeResource(Landroid/content/res/Resources;I)Landroid/graphics/Bitmap;
+    move-result-object v6
+    iput-object v6, p0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
+
+    :rotate_second
+    iget-object v5, p0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getWidth()I
+    move-result v6
+    int-to-float v6, v6
+    invoke-virtual {v5}, Landroid/graphics/Bitmap;->getHeight()I
+    move-result v7
+    int-to-float v7, v7
+    invoke-virtual {v3, v10, v6, v7}, Landroid/graphics/Matrix;->setRotate(FFF)V
+
+    invoke-direct {p0, v5, v3}, Lcom/ts/tsclock/ViewPager1;->getNewBitmap(Landroid/graphics/Bitmap;Landroid/graphics/Matrix;)Landroid/graphics/Bitmap;
+    move-result-object v5
+    iget-object v6, p0, Lcom/ts/tsclock/ViewPager1;->img_second:Landroid/widget/ImageView;
+    invoke-virtual {v6, v5}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
-
-    if-eqz v14, :cond_0
-
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v14}, Landroid/graphics/Bitmap;->isRecycled()Z
-
-    move-result v14
-
-    if-eqz v14, :cond_1
-
-    .line 241
-    :cond_0
-    invoke-virtual/range {p0 .. p0}, Lcom/ts/tsclock/ViewPager1;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v14
-
-    const v15, 0x7f02007d
-
-    invoke-static {v14, v15}, Landroid/graphics/BitmapFactory;->decodeResource(Landroid/content/res/Resources;I)Landroid/graphics/Bitmap;
-
-    move-result-object v14
-
-    move-object/from16 v0, p0
-
-    iput-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
-
-    .line 243
-    :cond_1
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v14}, Landroid/graphics/Bitmap;->getWidth()I
-
-    move-result v14
-
-    int-to-float v14, v14
-
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v15}, Landroid/graphics/Bitmap;->getHeight()I
-
-    move-result v15
-
-    int-to-float v15, v15
-
-    invoke-virtual {v1, v5, v14, v15}, Landroid/graphics/Matrix;->setRotate(FFF)V
-
-    .line 244
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpHour:Landroid/graphics/Bitmap;
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0, v14, v1}, Lcom/ts/tsclock/ViewPager1;->getNewBitmap(Landroid/graphics/Bitmap;Landroid/graphics/Matrix;)Landroid/graphics/Bitmap;
-
-    move-result-object v8
-
-    .line 245
-    .local v8, "newBmHour":Landroid/graphics/Bitmap;
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->img_hour:Landroid/widget/ImageView;
-
-    invoke-virtual {v14, v8}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
-
-    .line 248
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
-
-    if-eqz v14, :cond_2
-
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v14}, Landroid/graphics/Bitmap;->isRecycled()Z
-
-    move-result v14
-
-    if-eqz v14, :cond_3
-
-    .line 249
-    :cond_2
-    invoke-virtual/range {p0 .. p0}, Lcom/ts/tsclock/ViewPager1;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v14
-
-    const v15, 0x7f02007a
-
-    invoke-static {v14, v15}, Landroid/graphics/BitmapFactory;->decodeResource(Landroid/content/res/Resources;I)Landroid/graphics/Bitmap;
-
-    move-result-object v14
-
-    move-object/from16 v0, p0
-
-    iput-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
-
-    .line 251
-    :cond_3
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v14}, Landroid/graphics/Bitmap;->getWidth()I
-
-    move-result v14
-
-    int-to-float v14, v14
-
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v15}, Landroid/graphics/Bitmap;->getHeight()I
-
-    move-result v15
-
-    int-to-float v15, v15
-
-    invoke-virtual {v2, v7, v14, v15}, Landroid/graphics/Matrix;->setRotate(FFF)V
-
-    .line 252
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpMinute:Landroid/graphics/Bitmap;
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0, v14, v2}, Lcom/ts/tsclock/ViewPager1;->getNewBitmap(Landroid/graphics/Bitmap;Landroid/graphics/Matrix;)Landroid/graphics/Bitmap;
-
-    move-result-object v9
-
-    .line 253
-    .local v9, "newBmMinute":Landroid/graphics/Bitmap;
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->img_minute:Landroid/widget/ImageView;
-
-    invoke-virtual {v14, v9}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
-
-    .line 256
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
-
-    if-eqz v14, :cond_4
-
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v14}, Landroid/graphics/Bitmap;->isRecycled()Z
-
-    move-result v14
-
-    if-eqz v14, :cond_5
-
-    .line 257
-    :cond_4
-    invoke-virtual/range {p0 .. p0}, Lcom/ts/tsclock/ViewPager1;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v14
-
-    const v15, 0x7f02007b
-
-    invoke-static {v14, v15}, Landroid/graphics/BitmapFactory;->decodeResource(Landroid/content/res/Resources;I)Landroid/graphics/Bitmap;
-
-    move-result-object v14
-
-    move-object/from16 v0, p0
-
-    iput-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
-
-    .line 259
-    :cond_5
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v14}, Landroid/graphics/Bitmap;->getWidth()I
-
-    move-result v14
-
-    int-to-float v14, v14
-
-    move-object/from16 v0, p0
-
-    iget-object v15, v0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
-
-    invoke-virtual {v15}, Landroid/graphics/Bitmap;->getHeight()I
-
-    move-result v15
-
-    int-to-float v15, v15
-
-    invoke-virtual {v3, v12, v14, v15}, Landroid/graphics/Matrix;->setRotate(FFF)V
-
-    .line 260
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->mBmpSecond:Landroid/graphics/Bitmap;
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0, v14, v3}, Lcom/ts/tsclock/ViewPager1;->getNewBitmap(Landroid/graphics/Bitmap;Landroid/graphics/Matrix;)Landroid/graphics/Bitmap;
-
-    move-result-object v10
-
-    .line 261
-    .local v10, "newBmSecond":Landroid/graphics/Bitmap;
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/ts/tsclock/ViewPager1;->img_second:Landroid/widget/ImageView;
-
-    invoke-virtual {v14, v10}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
-
-    .line 265
     return-void
 .end method
+
 
 .method private updateDirection()V
     .locals 14
@@ -1914,61 +1773,88 @@
 .end method
 
 .method public updateLogo()V
-    .locals 9
+    .locals 6
 
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
-
     move-result-object v0
 
-    new-instance v1, Ljava/io/File;
+    const-string v1, "Pictures/tsclock.png"
+    new-instance v2, Ljava/io/File;
+    invoke-direct {v2, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    const-string v2, "Pictures/tsclock.png"
-
-    invoke-direct {v1, v0, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
-
+    const-string v1, "Pictures/centerlogo.png"
     new-instance v3, Ljava/io/File;
+    invoke-direct {v3, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    const-string v4, "Pictures/centerlogo.png"
+    const-string v1, "Pictures/tsclock/clockcenter.png"
+    new-instance v4, Ljava/io/File;
+    invoke-direct {v4, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    invoke-direct {v3, v0, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    const-string v1, "Pictures/tsclock/clockface.png"
+    new-instance v5, Ljava/io/File;
+    invoke-direct {v5, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    invoke-virtual {v1}, Ljava/io/File;->exists()Z
-
+    # mIvLogo
+    invoke-virtual {v2}, Ljava/io/File;->exists()Z
     move-result v0
+    if-eqz v0, :check_centerlogo
 
-    if-eqz v0, :cond_0
-
-    invoke-virtual {v1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
-
+    invoke-virtual {v2}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
     move-result-object v0
-
     invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
     move-result-object v0
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->mIvLogo:Landroid/widget/ImageView;
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
-    iget-object v2, p0, Lcom/ts/tsclock/ViewPager1;->mIvLogo:Landroid/widget/ImageView;
-
-    invoke-virtual {v2, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
-
-    :cond_0
+    :check_centerlogo
     invoke-virtual {v3}, Ljava/io/File;->exists()Z
-
     move-result v0
-
-    if-eqz v0, :cond_1
+    if-eqz v0, :check_clockcenter
 
     invoke-virtual {v3}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
-
     move-result-object v0
-
     invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
-
     move-result-object v0
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->centerlogo:Landroid/widget/ImageView;
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
-    iget-object v4, p0, Lcom/ts/tsclock/ViewPager1;->centerlogo:Landroid/widget/ImageView;
+    :check_clockcenter
+    invoke-virtual {v4}, Ljava/io/File;->exists()Z
+    move-result v0
+    if-eqz v0, :check_clockface
 
-    invoke-virtual {v4, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+    const v0, 0x7f080032  # R.id.clockcenter
+    invoke-virtual {p0, v0}, Lcom/ts/tsclock/ViewPager1;->findViewById(I)Landroid/view/View;
+    move-result-object v1
+    check-cast v1, Landroid/widget/ImageView;
+    iput-object v1, p0, Lcom/ts/tsclock/ViewPager1;->clockcenter:Landroid/widget/ImageView;
 
-    :cond_1
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->clockcenter:Landroid/widget/ImageView;
+    invoke-virtual {v4}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v2
+    invoke-static {v2}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v2
+    invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :check_clockface
+    invoke-virtual {v5}, Ljava/io/File;->exists()Z
+    move-result v0
+    if-eqz v0, :end
+
+    const v0, 0x7f080033  # R.id.clockface
+    invoke-virtual {p0, v0}, Lcom/ts/tsclock/ViewPager1;->findViewById(I)Landroid/view/View;
+    move-result-object v1
+    check-cast v1, Landroid/widget/ImageView;
+    iput-object v1, p0, Lcom/ts/tsclock/ViewPager1;->clockface:Landroid/widget/ImageView;
+
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->clockface:Landroid/widget/ImageView;
+    invoke-virtual {v5}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v2
+    invoke-static {v2}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v2
+    invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :end
     return-void
 .end method
+

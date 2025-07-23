@@ -104,3 +104,15 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 
 	* Button 5 in lower right now configurable for images and buttonMapping.  It is number 5.
   * If the config does not exist in buttonMapping.ini then the default behavior will be used.
+
+## TsClock\_2.3mod\_djbooya.apk
+
+[Download](dist/TsClock_2.3mod_djbooya.apk)
+
+	* Clock images can be overridden now.  Files all go in same location and are:
+		* second.png - can be changed without app restart
+		* minute.png - can be changed without app restart
+		* hour.png - can be changed without app restart
+		* clockcenter.png
+		* clockface.png
+	* Note: fastest way to restart tsclock is just to reload the apk
