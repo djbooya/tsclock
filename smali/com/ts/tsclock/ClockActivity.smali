@@ -2542,134 +2542,139 @@
     goto/16 :goto_3
 .end method
 
+
 .method public onClick(Landroid/view/View;)V
-    .locals 6
+    .registers 12
     .param p1, "v"    # Landroid/view/View;
 
     invoke-virtual {p1}, Landroid/view/View;->getId()I
     move-result v0
 
-    # if (v0 == R.id.btn_home)
-    const v1, 0x7f080009
-    if-ne v0, v1, :cond_navi
+    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mVp1:Landroid/support/v4/view/ViewPager;
     const/4 v2, 0x0
-    invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+    const/16 v3, 0x8
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mViewPager:Landroid/support/v4/view/ViewPager;
-    const/16 v2, 0x8
-    invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+    const v4, 0x7f080009  # btn_home
+    if-ne v0, v4, :cond_12
+
+    iget-object v4, p0, Lcom/ts/tsclock/ClockActivity;->mVp1:Lcom/ts/tsclock/ViewPager1;
+    invoke-virtual {v4, v2}, Lcom/ts/tsclock/ViewPager1;->setVisibility(I)V
+
+    iget-object v4, p0, Lcom/ts/tsclock/ClockActivity;->mViewPager:Landroid/support/v4/view/ViewPager;
+    invoke-virtual {v4, v3}, Landroid/support/v4/view/ViewPager;->setVisibility(I)V
+
     return-void
 
-    :cond_navi
-    const v1, 0x7f08000f
-    if-ne v0, v1, :cond_music
+    :cond_12
+    const v4, 0x7f08000f  # btn_navi
+    if-ne v0, v4, :cond_27
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
+    const-string v5, "btn1pkg"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v6
 
-    const-string v2, "btn1pkg"
-    invoke-virtual {v1, v2}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v2
-    if-nez v2, :pkg1_ok
-    const-string v2, "com.ts.MainUI"
-    :pkg1_ok
-    const-string v3, "btn1class"
-    invoke-virtual {v1, v3}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v3
-    if-nez v3, :class1_ok
-    const-string v3, "com.ts.main.navi.NaviMainActivity"
-    :class1_ok
-    invoke-direct {p0, v2, v3}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    const-string v5, "btn1class"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
+
+    const-string v8, "com.ts.MainUI"
+    if-nez v6, :cond_24
+    move-object v6, v8
+    :cond_24
+
+    const-string v8, "com.ts.main.navi.NaviMainActivity"
+    if-nez v7, :cond_26
+    move-object v7, v8
+    :cond_26
+
+    invoke-direct {p0, v6, v7}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
     return-void
 
-    :cond_music
-    const v1, 0x7f080010
-    if-ne v0, v1, :cond_video
+    :cond_27
+    const v4, 0x7f080010  # btn_music
+    if-ne v0, v4, :cond_3c
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
+    const-string v5, "btn2pkg"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v6
 
-    const-string v2, "btn2pkg"
-    invoke-virtual {v1, v2}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v2
-    if-nez v2, :pkg2_ok
-    const-string v2, "com.ts.dvdplayer"
-    :pkg2_ok
-    const-string v3, "btn2class"
-    invoke-virtual {v1, v3}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v3
-    if-nez v3, :class2_ok
-    const-string v3, "com.ts.dvdplayer.SDActivity"
-    :class2_ok
-    invoke-direct {p0, v2, v3}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    const-string v5, "btn2class"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
+
+    const-string v8, "com.ts.dvdplayer"
+    if-nez v6, :cond_39
+    move-object v6, v8
+    :cond_39
+
+    const-string v8, "com.ts.dvdplayer.SDActivity"
+    if-nez v7, :cond_3b
+    move-object v7, v8
+    :cond_3b
+
+    invoke-direct {p0, v6, v7}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
     return-void
 
-    :cond_video
-    const v1, 0x7f080011
-    if-ne v0, v1, :cond_allapp
+    :cond_3c
+    const v4, 0x7f080011  # btn_video
+    if-ne v0, v4, :cond_51
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
+    const-string v5, "btn3pkg"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v6
 
-    const-string v2, "btn3pkg"
-    invoke-virtual {v1, v2}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v2
-    if-nez v2, :pkg3_ok
-    const-string v2, "com.ts.dvdplayer"
-    :pkg3_ok
-    const-string v3, "btn3class"
-    invoke-virtual {v1, v3}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v3
-    if-nez v3, :class3_ok
-    const-string v3, "com.ts.dvdplayer.USBActivity"
-    :class3_ok
-    invoke-direct {p0, v2, v3}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
+    const-string v5, "btn3class"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
+
+    const-string v8, "com.ts.dvdplayer"
+    if-nez v6, :cond_4e
+    move-object v6, v8
+    :cond_4e
+
+    const-string v8, "com.ts.dvdplayer.USBActivity"
+    if-nez v7, :cond_50
+    move-object v7, v8
+    :cond_50
+
+    invoke-direct {p0, v6, v7}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
     return-void
 
-    :cond_allapp
-    const v1, 0x7f080012
-    if-ne v0, v1, :cond_close
+    :cond_51
+    const v4, 0x7f080012  # btn_allapp
+    if-ne v0, v4, :cond_5c
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mVp1:Landroid/support/v4/view/ViewPager;
-    const/16 v2, 0x8
-    invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+    iget-object v4, p0, Lcom/ts/tsclock/ClockActivity;->mVp1:Lcom/ts/tsclock/ViewPager1;
+    invoke-virtual {v4, v3}, Lcom/ts/tsclock/ViewPager1;->setVisibility(I)V
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->mViewPager:Landroid/support/v4/view/ViewPager;
-    const/4 v2, 0x0
-    invoke-virtual {v1, v2}, Landroid/view/View;->setVisibility(I)V
+    iget-object v4, p0, Lcom/ts/tsclock/ClockActivity;->mViewPager:Landroid/support/v4/view/ViewPager;
+    invoke-virtual {v4, v2}, Landroid/support/v4/view/ViewPager;->setVisibility(I)V
+
     return-void
 
-    :cond_close
-    const v1, 0x7f080013
-    if-ne v0, v1, :end
+    :cond_5c
+    const v4, 0x7f080013  # btn_close
+    if-ne v0, v4, :cond_70
 
-    iget-object v1, p0, Lcom/ts/tsclock/ClockActivity;->kvStore:Lcom/ts/tsclock/KeyValueStore;
+    const-string v5, "btn5pkg"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v6
 
-    const-string v2, "btn5pkg"
-    invoke-virtual {v1, v2}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v2
+    const-string v5, "btn5class"
+    invoke-virtual {v1, v5}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
+    move-result-object v7
 
-    const-string v3, "btn5class"
-    invoke-virtual {v1, v3}, Lcom/ts/tsclock/KeyValueStore;->getValue(Ljava/lang/String;)Ljava/lang/String;
-    move-result-object v3
-
-    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-    move-result v4
-
-    invoke-static {v3}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
-    move-result v5
-
-    or-int/2addr v4, v5
-    if-eqz v4, :non_empty
-
-    const-string v2, "forfan.intent.action.SCREENOFF"
-    invoke-direct {p0, v2}, Lcom/ts/tsclock/ClockActivity;->sendMainUIBroadcast(Ljava/lang/String;)V
+    if-eqz v6, :cond_6b
+    if-eqz v7, :cond_6b
+    invoke-direct {p0, v6, v7}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
     return-void
 
-    :non_empty
-    invoke-direct {p0, v2, v3}, Lcom/ts/tsclock/ClockActivity;->sendMultiScreenBroadcast(Ljava/lang/String;Ljava/lang/String;)V
-    return-void
+    :cond_6b
+    const-string v4, "forfan.intent.action.SCREENOFF"
+    invoke-direct {p0, v4}, Lcom/ts/tsclock/ClockActivity;->sendMainUIBroadcast(Ljava/lang/String;)V
 
-    :end
+    :cond_70
     return-void
 .end method
 
