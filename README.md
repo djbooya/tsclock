@@ -116,3 +116,11 @@ Use this at your own risk. While it's doubtful that this can brick your unit, yo
 		* clockcenter.png
 		* clockface.png
 	* Note: fastest way to restart tsclock is just to reload the apk
+
+## TsClock\_2.4mod\_djbooya.apk
+
+[Download](dist/TsClock_2.4mod_djbooya.apk)
+
+	* Compass can be overridden now.  Files all go in same location and are:
+		* compassdial.png - part that rotates
+		* compasspointer.png - has transparency in image

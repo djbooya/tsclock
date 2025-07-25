@@ -627,12 +627,10 @@
     iput-object v0, p0, Lcom/ts/tsclock/ViewPager1;->tv_angle:Landroid/widget/TextView;
 
     .line 149
+
     const v0, 0x7f080021
-
     invoke-virtual {p0, v0}, Lcom/ts/tsclock/ViewPager1;->findViewById(I)Landroid/view/View;
-
     move-result-object v0
-
     check-cast v0, Landroid/widget/ImageView;
 
     iput-object v0, p0, Lcom/ts/tsclock/ViewPager1;->img_compass_pointer:Landroid/widget/ImageView;
@@ -817,7 +815,7 @@
     iput-object v0, p0, Lcom/ts/tsclock/ViewPager1;->centerlogo:Landroid/widget/ImageView;
 
     .line 184
-    invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->updateLogo()V
+    invoke-virtual {p0}, Lcom/ts/tsclock/ViewPager1;->updateImages()V
 
     .line 185
     return-void
@@ -1772,8 +1770,8 @@
     return-void
 .end method
 
-.method public updateLogo()V
-    .locals 6
+.method public updateImages()V
+    .locals 10
 
     invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
     move-result-object v0
@@ -1794,6 +1792,58 @@
     new-instance v5, Ljava/io/File;
     invoke-direct {v5, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
+    const-string v1, "Pictures/tsclock/compasspointer.png"
+    new-instance v6, Ljava/io/File;
+    invoke-direct {v6, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    const-string v1, "Pictures/tsclock/compassdial.png"
+    new-instance v7, Ljava/io/File;
+    invoke-direct {v7, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    const-string v1, "Pictures/tsclock/tsclock.png"
+    new-instance v8, Ljava/io/File;
+    invoke-direct {v8, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    const-string v1, "Pictures/tsclock/centerlogo.png"
+    new-instance v9, Ljava/io/File;
+    invoke-direct {v9, v0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    # compasspointer
+    invoke-virtual {v6}, Ljava/io/File;->exists()Z
+    move-result v0
+    if-eqz v0, :check_compasspointer
+
+		iget-object v0, p0, Lcom/ts/tsclock/ViewPager1;->img_compass_pointer:Landroid/widget/ImageView;
+		const/4 v1, 0x0
+		invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+		# Set transparent background
+#		const v1, 0x00000000
+#		invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundColor(I)V
+		const v1, 0x00000000
+		invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setBackgroundColor(I)V
+
+    invoke-virtual {v6}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v0
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->img_compass_pointer:Landroid/widget/ImageView;
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :check_compasspointer
+    # compassdial
+    invoke-virtual {v7}, Ljava/io/File;->exists()Z
+    move-result v0
+    if-eqz v0, :check_compassdial
+
+    invoke-virtual {v7}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v0
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->img_compass_dial:Landroid/widget/ImageView;
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :check_compassdial
     # mIvLogo
     invoke-virtual {v2}, Ljava/io/File;->exists()Z
     move-result v0
@@ -1819,6 +1869,31 @@
     invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
 
     :check_clockcenter
+    # mIvLogo
+    invoke-virtual {v8}, Ljava/io/File;->exists()Z
+    move-result v0
+    if-eqz v0, :check_centerlogo2
+
+    invoke-virtual {v8}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v0
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->mIvLogo:Landroid/widget/ImageView;
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :check_centerlogo2
+    invoke-virtual {v9}, Ljava/io/File;->exists()Z
+    move-result v0
+    if-eqz v0, :check_clockcenter2
+
+    invoke-virtual {v9}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+    move-result-object v0
+    invoke-static {v0}, Landroid/graphics/BitmapFactory;->decodeFile(Ljava/lang/String;)Landroid/graphics/Bitmap;
+    move-result-object v0
+    iget-object v1, p0, Lcom/ts/tsclock/ViewPager1;->centerlogo:Landroid/widget/ImageView;
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setImageBitmap(Landroid/graphics/Bitmap;)V
+
+    :check_clockcenter2
     invoke-virtual {v4}, Ljava/io/File;->exists()Z
     move-result v0
     if-eqz v0, :check_clockface

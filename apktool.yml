@@ -1,5 +1,5 @@
 version: 2.11.0
-apkFileName: TsClock_2.3mod_djbooya.apk
+apkFileName: TsClock_2.4mod_djbooya.apk
 isFrameworkApk: false
 usesFramework:
   ids:
@@ -13,7 +13,7 @@ packageInfo:
   renameManifestPackage: null
 versionInfo:
   versionCode: 9
-  versionName: 2.3mod_djbooya
+  versionName: 2.4mod_djbooya
 sharedLibrary: false
 sparseResources: false
 compactEntries: false
